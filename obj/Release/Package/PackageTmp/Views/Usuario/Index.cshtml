@@ -1,0 +1,229 @@
+﻿@model List<PWII_Lab05_Valverde_Zamora_MVC_B.Models.ClsUsuario>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio-WEBII-Valverde</title>
+
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background-color: #34495e;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+            .form-container h3 {
+                color: #ecf0f1;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ecf0f1;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 10px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .btn-primary:hover {
+                background-color: #c0392b;
+            }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-col {
+            width: 48%;
+        }
+
+        .table-container {
+            background-color: #34495e;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+
+            .table-container h3 {
+                text-align: center;
+                color: white;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        td {
+            color: black; 
+            background-color: #f8f9fa;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .text-nowrap {
+            white-space: nowrap;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Formulario de Registro de Contacto -->
+    <div class="form-container">
+        <h3>Crear Contacto-Valverde</h3>
+        @if (!string.IsNullOrEmpty(ViewBag.MensajeError))
+        {
+            <div style="color: red; text-align: center;">@ViewBag.MensajeError</div>
+        }
+
+        <form action="/Usuario/GuardarContacto" method="post">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="dni">DNI:</label>
+                    <input type="number" name="DNI" id="dni" placeholder="Ingrese su DNI"
+                           pattern="\d{8}" maxlength="8" minlength="8" title="Debe tener 8 dígitos" required>
+                </div>
+                <div class="form-col">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="Nombre" id="nombre" placeholder="Ingrese su nombre" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" name="Apellidos" id="apellidos" placeholder="Ingrese sus apellidos" required>
+                </div>
+                <div class="form-col">
+                    <label for="numero">Número:</label>
+                    <input type="number" name="Numero" id="numero" placeholder="Ingrese su número"
+                           pattern="\d{9}" maxlength="9" minlength="9" title="Debe tener 9 dígitos" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="numero2">Número 2:</label>
+                    <input type="number" name="Numero2" id="numero2" placeholder="Ingrese su número secundario"
+                           pattern="\d{9}" maxlength="9" minlength="9" title="Debe tener 9 dígitos" required>
+                </div>
+                <div class="form-col">
+                    <label for="correo">Correo:</label>
+                    <input type="email" name="Correo" id="correo" placeholder="Ingrese su correo" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="direccion">Dirección (Opcional):</label>
+                <input type="text" name="Dirección" id="direccion" placeholder="Ingrese su dirección">
+            </div>
+
+            <button type="submit" class="btn-primary">Crear Contacto</button>
+        </form>
+    </div>
+
+    <!-- Lista de Contactos Registrados -->
+    <div class="table-container">
+        <h3>Lista de Contactos Registrados</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Número</th>
+                    <th>Número 2</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var usuario in Model)
+                {
+                    <tr>
+                        <td class="text-nowrap">@usuario.DNI</td>
+                        <td class="text-nowrap">@usuario.Nombre</td>
+                        <td class="text-nowrap">@usuario.Apellidos</td>
+                        <td class="text-nowrap">@usuario.Numero</td>
+                        <td class="text-nowrap">@usuario.Numero2</td>
+                        <td class="text-nowrap">@usuario.Correo</td>
+                        <td class="text-nowrap">@usuario.Dirección</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p class="footer-text">© 2024 - Ejercicio-WEBII-Valverde</p>
+    </footer>
+
+</body>
+</html>
